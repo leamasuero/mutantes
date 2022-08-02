@@ -30,12 +30,8 @@ app.get('/', async function (req, res) {
     const stats = client.db("mutantes").collection("stats");
 
     document = stats.find({'_id': 1})
+    let result = await stats.insertOne({'_id': 1, count_mutant_dna: 3})
 
-    let result;
-    if (!document) {
-        result = await stats.insertOne({'_id': 1, count_mutant_dna: 3})
-        console.log(result)
-    }
 
     res.send(`${result.insertedId}`)
 })
