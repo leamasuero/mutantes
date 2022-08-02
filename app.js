@@ -19,7 +19,7 @@ let adn = [
 ];
 
 
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
 
     const client = new MongoClient(process.env.MONGODB_URI, {
         useNewUrlParser: true,
