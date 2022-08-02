@@ -18,10 +18,10 @@ let adn = [
     ['T', 'C', 'A', 'C', 'T', 'G'],
 ];
 
-app.get('/', function (req, res) {
 
-    const uri = "mongodb+srv://sanbox:tPGbHzCbFX5wiwpv@clusterdb.opzvo.mongodb.net/?retryWrites=true&w=majority";
-    const client = new MongoClient(uri, {
+app.get('/', function (req, res) {
+    
+    const client = new MongoClient(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         serverApi: ServerApiVersion.v1
