@@ -27,8 +27,14 @@ app.get('/', async function (req, res) {
         serverApi: ServerApiVersion.v1
     });
 
-    const collection = client.db("mutantes").collection("stats");
-    const result = await collection.insertOne({count_mutant_dna: 3})
+    const stats = client.db("mutantes").collection("stats");
+
+    document = stats.find({'_id': 1})
+
+    if (!document) {
+        const result = await stats.insertOne({'_id': 1, count_mutant_dna: 3})
+    }
+
     console.log(result)
 
     res.send(`${result.insertedId}`)
