@@ -20,21 +20,16 @@ let adn = [
 
 
 app.get('/', function (req, res) {
-    
+
     const client = new MongoClient(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         serverApi: ServerApiVersion.v1
     });
-    client.connect(err => {
-        const collection = client.db("mutantes").collection("stats");
-        console.log(collection)
-        const result = collection.insertOne({count_mutant_dna: 3})
-        console.log(result)
-        // console.log(`A document was inserted with the _id: ${result.insertedId}`);
-        // perform actions on the collection object
-        client.close();
-    });
+
+    const collection = client.db("mutantes").collection("stats");
+    const result = collection.insertOne({count_mutant_dna: 3})
+    console.log(result)
 
     res.send(`${result.insertedId}`)
 })
