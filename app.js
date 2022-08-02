@@ -31,7 +31,7 @@ app.get('/', function (req, res) {
         console.log(collection)
         const result = collection.insertOne({count_mutant_dna: 3})
         console.log(result)
-        console.log(`A document was inserted with the _id: ${result.insertedId}`);
+        // console.log(`A document was inserted with the _id: ${result.insertedId}`);
         // perform actions on the collection object
         client.close();
     });
