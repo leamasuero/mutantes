@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
     });
 
     const collection = client.db("mutantes").collection("stats");
-    const result = collection.insertOne({count_mutant_dna: 3})
+    const result = await collection.insertOne({count_mutant_dna: 3})
     console.log(result)
 
     res.send(`${result.insertedId}`)
