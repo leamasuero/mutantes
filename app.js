@@ -1,7 +1,7 @@
 let express = require('express');
 require('dotenv').config()
 let port = process.env.PORT || 3000
-let mutanteService = require("./services");
+let {mutanteService, db} = require("./services");
 let bodyParser = require('body-parser')
 const {MongoClient, ServerApiVersion} = require('mongodb');
 
@@ -45,13 +45,16 @@ app.post('/mutant', function (req, res) {
     req.body.dna.forEach(function (secuencia) {
         adn.push([...secuencia])
     })
+
     console.log(adn)
 
 
     if (mutanteService.isMutante(adn, req.query.umbralMutante ?? 4)) {
+        db.persist('mutantes', adn)
         res.status(200).send()
     }
 
+    db.persist('humanos', adn)
     res.status(403).send()
 });
 

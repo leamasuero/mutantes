@@ -1,3 +1,5 @@
+const {MongoClient, ServerApiVersion} = require("mongodb");
+
 const mutanteService = {
     isMutante: function (adn, umbralMutante) {
         const self = this;
@@ -59,4 +61,22 @@ const mutanteService = {
     }
 }
 
-module.exports = mutanteService
+const db = {
+
+    persist: function (collection, adn) {
+
+        const client = new MongoClient(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            serverApi: ServerApiVersion.v1
+        });
+
+
+        return client.db("adn").collection(collection).insertOne({adn: adn});
+    }
+}
+
+module.exports = {
+    db,
+    mutanteService
+}
