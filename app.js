@@ -3,7 +3,7 @@ require('dotenv').config()
 let port = process.env.PORT || 3000
 let {mutanteService, db} = require("./services");
 let bodyParser = require('body-parser')
-const {MongoClient, ServerApiVersion} = require('mongodb');
+const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 
 let app = express();
 app.use(bodyParser.json())
@@ -27,13 +27,11 @@ app.get('/', async function (req, res) {
         serverApi: ServerApiVersion.v1
     });
 
-    const stats = client.db("mutantes").collection("stats");
+    const stats = client.db("adn").collection("humanos");
 
-    document = stats.find({'_id': 1})
-    let result = await stats.insertOne({'_id': 1, count_mutant_dna: 3})
+    const document = await stats.find({}).toArray()
+    console.log(document)
 
-
-    res.send(`${result.insertedId}`)
 })
 
 
